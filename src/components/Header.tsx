@@ -6,7 +6,7 @@ import { useSiteSettings } from "@/context/SiteSettingsContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { settings } = useSiteSettings();
+  const { settings, loading } = useSiteSettings();
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -17,12 +17,12 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
       <div className="container mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          {settings.navbar_logo_url ? (
+        <Link to="/" className="flex items-center gap-3 h-8">
+          {loading ? (
+            <div className="h-8 w-[100px]" />
+          ) : settings.navbar_logo_url ? (
             <img src={settings.navbar_logo_url} alt="Logo" className="h-8 max-w-[140px] object-contain" />
-          ) : (
-            <span className="text-xl font-bold text-foreground">Example</span>
-          )}
+          ) : null}
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
