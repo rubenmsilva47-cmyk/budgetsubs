@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,9 +13,40 @@ import Products from "./pages/Products";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Contact from "./pages/Contact";
 import SocialButtons from "./components/SocialButtons";
+import ScrollToTop from "./components/ScrollToTop";
+import LoadingScreen from "./components/LoadingScreen";
 
 const queryClient = new QueryClient();
+
+const AppContent = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <>
+      {isLoading && <LoadingScreen onLoadComplete={() => setIsLoading(false)} />}
+      <div className={isLoading ? "opacity-0" : "opacity-100 transition-opacity duration-300"}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <SocialButtons />
+          </BrowserRouter>
+        </TooltipProvider>
+      </div>
+    </>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -22,20 +54,7 @@ const App = () => (
       <ProductProvider>
         <CategoryProvider>
           <SiteSettingsProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/admin" element={<Admin />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                <SocialButtons />
-              </BrowserRouter>
-            </TooltipProvider>
+            <AppContent />
           </SiteSettingsProvider>
         </CategoryProvider>
       </ProductProvider>

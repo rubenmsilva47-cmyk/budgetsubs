@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import FlowingMenu from "@/components/FlowingMenu";
@@ -15,7 +15,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   useLenis();
-  const navigate = useNavigate();
   const { products, loading } = useProducts();
   const { settings } = useSiteSettings();
 
@@ -108,9 +107,9 @@ const Index = () => {
                   </div>
                 )}
                 <div className="text-center mt-10 sm:mt-16">
-                  <Button variant="hero" size="lg" onClick={() => navigate("/products")}>
+                  <a href="/products" className="inline-flex items-center justify-center px-7 py-3 text-sm font-medium rounded-full bg-white text-black hover:bg-white/90 transition-colors shadow-lg shadow-white/10">
                     Browse All Products
-                  </Button>
+                  </a>
                 </div>
               </>
             )}

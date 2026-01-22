@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useProducts } from "@/context/ProductContext";
 import { useCategories } from "@/context/CategoryContext";
 import ProductCard from "@/components/ProductCard";
@@ -9,6 +10,14 @@ import Footer from "@/components/Footer";
 import { useLenis } from "@/hooks/useLenis";
 
 const Products = () => {
+  const location = useLocation();
+  
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [location.key]);
+  
   useLenis();
   const { products, loading } = useProducts();
   const { categories, loading: categoriesLoading } = useCategories();

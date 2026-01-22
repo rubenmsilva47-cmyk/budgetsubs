@@ -12,62 +12,61 @@ const Header = () => {
     { name: "Home", path: "/" },
     { name: "How it Works", path: "/#how" },
     { name: "FAQ", path: "/#faq" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
-      <div className="container mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4">
+      <div className="w-full max-w-3xl px-5 py-2.5 flex items-center bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-xl shadow-black/20">
         <Link to="/" className="flex items-center gap-3 h-8">
           {loading ? (
             <div className="h-8 w-[100px]" />
           ) : settings.navbar_logo_url ? (
-            <img src={settings.navbar_logo_url} alt="Logo" className="h-8 max-w-[140px] object-contain" />
+            <img src={settings.navbar_logo_url} alt="Logo" className="h-7 max-w-[120px] object-contain" />
           ) : null}
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.path}
-              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+              className="px-3 py-1.5 text-sm text-white/70 hover:text-white transition-colors"
             >
               {link.name}
             </a>
           ))}
         </nav>
 
-        <Button variant="hero" size="sm" asChild className="hidden md:inline-flex">
-          <Link to="/products">Products</Link>
-        </Button>
+        <a href="/products" className="hidden md:inline-flex px-4 py-1.5 text-sm font-medium rounded-full bg-white text-black hover:bg-white/90 transition-colors">
+          Products
+        </a>
 
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
+          className="md:hidden p-2 text-foreground hover:bg-secondary/50 rounded-xl transition-colors"
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/30">
-          <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
+        <div className="md:hidden absolute top-full left-4 right-4 mt-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/30 overflow-hidden">
+          <nav className="p-3 flex flex-col gap-0.5">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.path}
                 onClick={() => setIsMenuOpen(false)}
-                className="text-foreground hover:text-primary transition-colors font-medium py-2 text-lg"
+                className="px-4 py-2.5 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-colors"
               >
                 {link.name}
               </a>
             ))}
-            <Button variant="hero" size="lg" asChild className="mt-4 w-full">
-              <Link to="/products" onClick={() => setIsMenuOpen(false)}>
-                Browse Products
-              </Link>
-            </Button>
+            <a href="/products" className="mt-1 w-full flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-xl bg-white text-black hover:bg-white/90 transition-colors">
+              Browse Products
+            </a>
           </nav>
         </div>
       )}
