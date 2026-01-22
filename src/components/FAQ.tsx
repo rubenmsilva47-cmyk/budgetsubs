@@ -99,7 +99,7 @@ const FAQ = () => {
           <div className="mt-12 text-center">
             <p className="text-sm text-muted-foreground">
               Still have questions?{" "}
-              <a href="#contact" className="text-primary hover:text-primary/80 underline underline-offset-4 transition-colors">
+              <a href="/contact" className="text-primary hover:text-primary/80 underline underline-offset-4 transition-colors">
                 Get in touch
               </a>
             </p>
