@@ -20,7 +20,7 @@ const badgeColors = {
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const savings = Math.round(((product.original_price - product.price) / product.original_price) * 100);
+  const savings = product.original_price ? Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0;
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -50,8 +50,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <div className="relative p-6 space-y-4">
         <div className="flex items-center gap-3 flex-wrap">
           <span className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">${product.price}</span>
-          <span className="text-sm text-muted-foreground line-through">${product.original_price}/yearly</span>
-          <Badge variant="secondary" className="bg-primary/15 text-primary border border-primary/20 font-semibold">Save {savings}%</Badge>
+          {product.original_price && (
+            <>
+              <span className="text-sm text-muted-foreground line-through">${product.original_price}/yearly</span>
+              <Badge variant="secondary" className="bg-primary/15 text-primary border border-primary/20 font-semibold">Save {savings}%</Badge>
+            </>
+          )}
         </div>
         <h3 className="text-xl font-bold text-foreground">{product.name}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed">{product.description}</p>

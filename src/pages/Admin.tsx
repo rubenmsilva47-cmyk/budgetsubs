@@ -103,10 +103,10 @@ const Admin = () => {
       name: formData.name,
       description: formData.description,
       price: parseFloat(formData.price),
-      original_price: parseFloat(formData.original_price),
+      original_price: formData.original_price ? parseFloat(formData.original_price) : null,
       duration: formData.duration,
       image: formData.image || "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=400&h=300&fit=crop",
-      badge: (formData.badge === "none" || !formData.badge) ? null : formData.badge,
+      badge: (formData.badge === "" || !formData.badge) ? null : formData.badge,
       stock: formData.stock ? parseInt(formData.stock) : null,
       paylix_product_id: formData.paylix_product_id || null,
       category_id: (formData.category_id === "none" || !formData.category_id) ? null : formData.category_id,
@@ -158,7 +158,7 @@ const Admin = () => {
         original_price: product.original_price?.toString() || "",
         duration: product.duration || "12 months",
         image: product.image || "",
-        badge: (product.badge as "" | "NEW" | "FRESH" | "HOT") || "none",
+        badge: (product.badge as "" | "NEW" | "FRESH" | "HOT") || "",
         stock: product.stock?.toString() || "",
         paylix_product_id: product.paylix_product_id || "",
         category_id: product.category_id || "none",
@@ -308,7 +308,7 @@ const Admin = () => {
                           step="0.01"
                           value={formData.original_price}
                           onChange={(e) => setFormData({ ...formData, original_price: e.target.value })}
-                          required
+                          placeholder="Optional"
                           className="mt-1.5"
                         />
                       </div>
